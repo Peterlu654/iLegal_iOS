@@ -1,0 +1,27 @@
+PODS:
+  - Alamofire (4.5.1)
+  - CryptoSwift (0.7.2)
+  - ILPDFKit (1.1.9)
+  - MBProgressHUD (1.0.0)
+  - SwiftyJSON (3.1.4)
+  - Walkthrough (0.1.1)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.0)
+  - CryptoSwift
+  - ILPDFKit
+  - MBProgressHUD
+  - SwiftyJSON
+  - Walkthrough
+
+SPEC CHECKSUMS:
+  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  CryptoSwift: cd2158be2bf639aabc63ec804707c7137c90157c
+  ILPDFKit: ba2ba8900c8f5fda3126c3b66c9c296c19f82dbe
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  Walkthrough: 793c5eb9d0f3dfb606abf14b14890d72e4c221e3
+
+PODFILE CHECKSUM: 5bea297b233da00bbe038a4b47d0ffc3957afd5a
+
+COCOAPODS: 1.3.1
