@@ -12,7 +12,8 @@ import MessageUI
 class ContactUsViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     //Contact Person's Email
-    var contactEmail = "yadirao40@yahoo.com"
+    //var contactEmail = "yadirao40@yahoo.com"
+    var contactEmail = "peterjlu@usc.edu"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,10 +31,12 @@ class ContactUsViewController: UIViewController, MFMailComposeViewControllerDele
     
     @IBAction func emailButtonClicked(_ sender: UIButton) {
         let mailComposeViewController = configuredMailComposeViewController()
+        self.present(mailComposeViewController, animated: true, completion: nil)
         if MFMailComposeViewController.canSendMail()
         {
             self.present(mailComposeViewController, animated: true, completion: nil)
-        } else
+        }
+        else
         {
             self.showSendMailErrorAlert()
         }
@@ -45,7 +48,7 @@ class ContactUsViewController: UIViewController, MFMailComposeViewControllerDele
         mailComposerVC.mailComposeDelegate = self
         mailComposerVC.setToRecipients([contactEmail])
         mailComposerVC.setSubject("iLegalSelfHelp: ")
-        //mailComposerVC.setMessageBody(messageBodyTF.text!, isHTML: false)
+        mailComposerVC.setMessageBody("", isHTML: false)
         
         return mailComposerVC
     }

@@ -41,9 +41,6 @@ class ForgotPasswordViewController: UIViewController, MFMailComposeViewControlle
             
             let userFound = false
             
-            //CHECK IF USER INFORMATION ARE CORRECT AND EXISTS IN DATABASE (ELSE-IF)
-            //Assign result to userFound
-            
             if !userFound
             {
                 //If inputted user information is incorrect, display alert
@@ -62,10 +59,8 @@ class ForgotPasswordViewController: UIViewController, MFMailComposeViewControlle
                     self.showSendMailErrorAlert()
                 }
             }
-
             
         }
-        
 
     }
     
@@ -76,9 +71,26 @@ class ForgotPasswordViewController: UIViewController, MFMailComposeViewControlle
         mailComposerVC.setToRecipients([emailTF.text!])
         mailComposerVC.setSubject("Forgot Your Password?")
         //DRAFT FORGOT PASSWORD MESSAGE IN HTML
-        mailComposerVC.setMessageBody("", isHTML: true)
+        let newPassword = randomString(length: 10)
+        mailComposerVC.setMessageBody("Your temporary password is \(newPassword)", isHTML: true)
         
         return mailComposerVC
+    }
+    
+    func randomString(length: Int) -> String {
+        
+        let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let len = UInt32(letters.length)
+        
+        var random = ""
+        
+        for _ in 0 ..< length {
+            let rand = arc4random_uniform(len)
+            var nextLetter = letters.character(at: Int(rand))
+            random += NSString(characters: &nextLetter, length: 1) as String
+        }
+        
+        return random
     }
     
     func showSendMailErrorAlert(){

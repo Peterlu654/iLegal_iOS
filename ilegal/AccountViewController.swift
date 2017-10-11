@@ -13,6 +13,7 @@ class AccountViewController: UITableViewController {
     // MARK: - Properties
     
     private var userProperties = [UserProperty]()
+    private var contactLoaded = false
     
     // MARK: - Lifecycle methods
 
@@ -49,11 +50,24 @@ class AccountViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? userProperties.count : 1
+        return section == 0 ? userProperties.count : 2
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let reuseID = indexPath.section == 0 ? "userPropertyCell" : "logoutCell"
+        var reuseID = ""
+        if (indexPath.section == 0){
+            reuseID = "userPropertyCell"
+        }
+        else{
+            if (indexPath.row == 0){
+                reuseID = "contactUsCell"
+            }
+            else {
+                reuseID = "logoutCell"
+            }
+        }
+        
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseID, for: indexPath)
         
         cell.backgroundColor = UIColor(white: 1, alpha: 0.4);
@@ -73,7 +87,8 @@ class AccountViewController: UITableViewController {
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "logoutSegue" {
             Backend.clearUserLocal()
-        } else if segue.identifier == "updateUserSegue" {
+        }
+        else if segue.identifier == "updateUserSegue" {
             let indexPath = tableView.indexPathForSelectedRow
             (segue.destination as! UpdateUserViewController).userProperty = userProperties[indexPath!.row]
         }
