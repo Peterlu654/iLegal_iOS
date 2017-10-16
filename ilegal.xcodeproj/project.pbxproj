@@ -39,6 +39,7 @@
 		B7899B7A1D9E1F2D00039AB6 /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7899B791D9E1F2D00039AB6 /* Form.swift */; };
 		B7D9EDEC1DB42F75005EEBC6 /* YesNoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D9EDEB1DB42F75005EEBC6 /* YesNoButton.swift */; };
 		B7D9EDEE1DB43515005EEBC6 /* DonePDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D9EDED1DB43515005EEBC6 /* DonePDFViewController.swift */; };
+		D05422451F955E73004A6E65 /* DMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05422441F955E73004A6E65 /* DMViewController.swift */; };
 		D077DBC71F90399B00ED9650 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D077DBC61F90399B00ED9650 /* GoogleService-Info.plist */; };
 		FEE8ECD21D868D7C0005C457 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE8ECD11D868D7C0005C457 /* AppDelegate.swift */; };
 		FEE8ECD41D868D7C0005C457 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE8ECD31D868D7C0005C457 /* ViewController.swift */; };
@@ -105,6 +106,7 @@
 		B7D9EDEB1DB42F75005EEBC6 /* YesNoButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YesNoButton.swift; sourceTree = "<group>"; };
 		B7D9EDED1DB43515005EEBC6 /* DonePDFViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonePDFViewController.swift; sourceTree = "<group>"; };
 		CC67B8B0B003450BF136D983 /* Pods-ilegal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ilegal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ilegal/Pods-ilegal.debug.xcconfig"; sourceTree = "<group>"; };
+		D05422441F955E73004A6E65 /* DMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMViewController.swift; sourceTree = "<group>"; };
 		D077DBC61F90399B00ED9650 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FEE8ECCE1D868D7C0005C457 /* ilegal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ilegal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEE8ECD11D868D7C0005C457 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				56E84F9D1D87C1BC00E406FC /* ContactUsViewController.swift */,
 				56E84F991D87C11700E406FC /* CotinueAccountViewController.swift */,
 				56E84F971D87BF7500E406FC /* CreateAccountViewController.swift */,
+				D05422441F955E73004A6E65 /* DMViewController.swift */,
 				56833AB21D8B955200EEF299 /* DocumentsViewController.swift */,
 				B7D9EDED1DB43515005EEBC6 /* DonePDFViewController.swift */,
 				B70EDC451DC54A62001A7D47 /* DropdownPickerView.swift */,
@@ -375,6 +378,7 @@
 				62E9B6171E53CCA600C63E76 /* UpdateUserViewController.swift in Sources */,
 				62B554D91E4ADBB40037C41D /* AccountViewController.swift in Sources */,
 				62B61C581E5BFC0F00E22C07 /* EditPDFViewController2.swift in Sources */,
+				D05422451F955E73004A6E65 /* DMViewController.swift in Sources */,
 				56C6B7A91DB7E4A700514D93 /* PDFTextField.swift in Sources */,
 				56E84F9A1D87C11700E406FC /* CotinueAccountViewController.swift in Sources */,
 				623388971E6F82AA00F0226F /* Extensions.swift in Sources */,

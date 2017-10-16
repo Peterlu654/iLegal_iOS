@@ -29,6 +29,10 @@ class ContactUsViewController: UIViewController, MFMailComposeViewControllerDele
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func DMButtonClicked(_ sender: UIButton) {
+        
+    }
+    
     @IBAction func emailButtonClicked(_ sender: UIButton) {
         let mailComposeViewController = configuredMailComposeViewController()
         self.present(mailComposeViewController, animated: true, completion: nil)
