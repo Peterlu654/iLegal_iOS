@@ -88,7 +88,7 @@ static NSString *const ILPDFCharEncoding = @"NSASCIIStringEncoding";
         [self addGestureRecognizer:_tapGestureRecognizer];
         _tapGestureRecognizer.delegate = self;
         [self addSubview:self.pdfView];
-        [self.pdfView pinToSuperview:UIEdgeInsetsZero];
+        //[self.pdfView pinToSuperview:UIEdgeInsetsZero];
     }
     return self;
 }

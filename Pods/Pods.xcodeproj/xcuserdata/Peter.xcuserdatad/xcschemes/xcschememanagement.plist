@@ -20,6 +20,8 @@
 		</dict>
 		<key>GoogleToolboxForMac.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
@@ -46,6 +48,8 @@
 		</dict>
 		<key>Protobuf.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>7</integer>
 		</dict>
@@ -65,6 +69,8 @@
 		</dict>
 		<key>nanopb.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>

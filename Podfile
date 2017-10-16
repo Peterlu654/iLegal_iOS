@@ -12,4 +12,7 @@ target 'ilegal' do
     pod 'ILPDFKit'
     pod 'MBProgressHUD'
     pod 'Walkthrough'
+    pod 'Firebase/Core'
+    pod 'Firebase/Messaging'
+
 end

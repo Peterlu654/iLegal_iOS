@@ -39,7 +39,8 @@ class ForgotPasswordViewController: UIViewController, MFMailComposeViewControlle
         } else{
             
             
-            let userFound = false
+            var userFound: Bool
+            userFound = true
             
             if !userFound
             {
@@ -50,7 +51,10 @@ class ForgotPasswordViewController: UIViewController, MFMailComposeViewControlle
             }
             else {
                 //Send user the password to their email
-                let mailComposeViewController = configuredMailComposeViewController()
+                let newPassword = randomString(length: 10)
+                // Change password
+                
+                let mailComposeViewController = configuredMailComposeViewController(newPassword: newPassword)
                 if MFMailComposeViewController.canSendMail()
                 {
                     self.present(mailComposeViewController, animated: true, completion: nil)
@@ -64,14 +68,12 @@ class ForgotPasswordViewController: UIViewController, MFMailComposeViewControlle
 
     }
     
-    func configuredMailComposeViewController() -> MFMailComposeViewController
+    func configuredMailComposeViewController(newPassword: String) -> MFMailComposeViewController
     {
         let mailComposerVC = MFMailComposeViewController()
         mailComposerVC.mailComposeDelegate = self
         mailComposerVC.setToRecipients([emailTF.text!])
         mailComposerVC.setSubject("Forgot Your Password?")
-        //DRAFT FORGOT PASSWORD MESSAGE IN HTML
-        let newPassword = randomString(length: 10)
         mailComposerVC.setMessageBody("Your temporary password is \(newPassword)", isHTML: true)
         
         return mailComposerVC

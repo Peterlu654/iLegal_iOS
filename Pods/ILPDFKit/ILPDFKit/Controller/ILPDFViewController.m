@@ -62,7 +62,7 @@
 
 // Override to customize constraints.
 - (void)applyConstraintsToPDFView {
-    [_pdfView pinToSuperview:UIEdgeInsetsZero guide:self.view.layoutMarginsGuide];
+    //[_pdfView pinToSuperview:UIEdgeInsetsZero guide:self.view.layoutMarginsGuide];
 }
 
 #pragma mark - Private

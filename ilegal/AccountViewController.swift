@@ -88,6 +88,7 @@ class AccountViewController: UITableViewController {
         if segue.identifier == "logoutSegue" {
             Backend.clearUserLocal()
         }
+
         else if segue.identifier == "updateUserSegue" {
             let indexPath = tableView.indexPathForSelectedRow
             (segue.destination as! UpdateUserViewController).userProperty = userProperties[indexPath!.row]
