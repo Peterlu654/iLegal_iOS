@@ -29,32 +29,23 @@ class ContactUsViewController: UIViewController, MFMailComposeViewControllerDele
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func DMButtonClicked(_ sender: UIButton) {
-        
-    }
-    
     @IBAction func emailButtonClicked(_ sender: UIButton) {
-        let mailComposeViewController = configuredMailComposeViewController()
-        self.present(mailComposeViewController, animated: true, completion: nil)
-        if MFMailComposeViewController.canSendMail()
-        {
-            self.present(mailComposeViewController, animated: true, completion: nil)
+        if let mailComposeVC: MFMailComposeViewController = MFMailComposeViewController(){
+            mailComposeVC.mailComposeDelegate = self
+            mailComposeVC.setToRecipients([contactEmail])
+            mailComposeVC.setSubject("iLegalSelfHelp: ")
+            mailComposeVC.setMessageBody("", isHTML: false)
+            self.present(mailComposeVC, animated: true, completion: nil)
+            
+            if MFMailComposeViewController.canSendMail()
+            {
+                self.present(mailComposeVC, animated: true, completion: nil)
+            }
+            else
+            {
+                self.showSendMailErrorAlert()
+            }
         }
-        else
-        {
-            self.showSendMailErrorAlert()
-        }
-    }
-
-    func configuredMailComposeViewController() -> MFMailComposeViewController
-    {
-        let mailComposerVC = MFMailComposeViewController()
-        mailComposerVC.mailComposeDelegate = self
-        mailComposerVC.setToRecipients([contactEmail])
-        mailComposerVC.setSubject("iLegalSelfHelp: ")
-        mailComposerVC.setMessageBody("", isHTML: false)
-        
-        return mailComposerVC
     }
     
     func showSendMailErrorAlert(){

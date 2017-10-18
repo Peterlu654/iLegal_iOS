@@ -19,7 +19,7 @@ class AccountViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.tabBarController?.tabBar.isHidden = true
         
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 111.0/255.0, green: 42.0/255.0, blue: 59.0/255.0, alpha:1.0)
         
@@ -50,7 +50,7 @@ class AccountViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? userProperties.count : 2
+        return section == 0 ? userProperties.count : 3
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -59,8 +59,11 @@ class AccountViewController: UITableViewController {
             reuseID = "userPropertyCell"
         }
         else{
-            if (indexPath.row == 0){
+            if indexPath.row == 0 {
                 reuseID = "contactUsCell"
+            }
+            else if indexPath.row == 1{
+                reuseID = "chatCell"
             }
             else {
                 reuseID = "logoutCell"
@@ -92,6 +95,9 @@ class AccountViewController: UITableViewController {
         else if segue.identifier == "updateUserSegue" {
             let indexPath = tableView.indexPathForSelectedRow
             (segue.destination as! UpdateUserViewController).userProperty = userProperties[indexPath!.row]
+        }
+        else if segue.identifier == "chatSegue"{
+            self.tabBarController?.tabBar.isHidden = false
         }
      }
 

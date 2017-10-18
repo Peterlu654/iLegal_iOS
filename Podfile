@@ -14,5 +14,9 @@ target 'ilegal' do
     pod 'Walkthrough'
     pod 'Firebase/Core'
     pod 'Firebase/Messaging'
+    pod 'Firebase/Storage'
+    pod 'Firebase/Auth'
+    pod 'Firebase/Database'
+    pod 'JSQMessagesViewController'
 
 end
