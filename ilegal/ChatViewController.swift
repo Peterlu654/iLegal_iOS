@@ -7,10 +7,12 @@
 
 import UIKit
 import JSQMessagesViewController
+import FirebaseAuth
 
 class ChatViewController: JSQMessagesViewController {
 
     var messages = [JSQMessage]()
+    var handle: AuthStateDidChangeListenerHandle?
     
     lazy var outgoingBubble: JSQMessagesBubbleImage = {
         return JSQMessagesBubbleImageFactory()!.outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleBlue())
@@ -23,14 +25,41 @@ class ChatViewController: JSQMessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        handle = Auth.auth().addStateDidChangeListener { (auth, user) in
+            // ...
+        }
+        
         inputToolbar.contentView.leftBarButtonItem = nil
         collectionView.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
         collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
         
+        
         senderId = "1234"
         senderDisplayName = "Person"
-
-        // Do any additional setup after loading the view.
+        
+        //static let databaseRoot = Database.database().reference()
+        //static let databaseChats = databaseRoot.child("chats")
+        
+        let query = Constants.refs.databaseChats.queryLimited(toLast: 10)
+        
+        _ = query.observe(.childAdded, with: { [weak self] snapshot in
+            
+            if  let data        = snapshot.value as? [String: String],
+                let id          = data["sender_id"],
+                let name        = data["name"],
+                let text        = data["text"],
+                !text.isEmpty
+            {
+                if let message = JSQMessage(senderId: id, displayName: name, text: text)
+                {
+                    self?.messages.append(message)
+                    
+                    self?.finishReceivingMessage()
+                }
+            }
+        })
+     
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData!
@@ -63,13 +92,30 @@ class ChatViewController: JSQMessagesViewController {
         return messages[indexPath.item].senderId == senderId ? 0 : 15
     }
     
+    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!)
+    {
+        
+        let ref = Constants.refs.databaseChats.childByAutoId()
+        
+        let message = ["sender_id": senderId, "name": senderDisplayName, "text": text]
+        
+        ref.setValue(message)
+        
+        finishSendingMessage()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        Auth.auth().removeStateDidChangeListener(handle!)
+    }
     
-
+ 
+ 
+    
     /*
     // MARK: - Navigation
 
@@ -81,3 +127,5 @@ class ChatViewController: JSQMessagesViewController {
     */
 
 }
+
+

@@ -8,6 +8,7 @@
 
 import UIKit
 import CryptoSwift
+import Firebase
 
 
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
@@ -179,6 +180,9 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         }
         else
         {
+            Auth.auth().createUser(withEmail: emailTF.text!, password: passwordTF.text!) { (user, error) in
+                // ...
+            }
             User.currentUser.active = true
             User.currentUser.firstName = firstNameTF.text
             if(middleInitialTF.text!.characters.count > 0){

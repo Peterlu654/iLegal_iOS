@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import Firebase
 
 class ViewController: UIViewController {
 
@@ -37,6 +38,9 @@ class ViewController: UIViewController {
                     alertController.addAction(UIAlertAction(title:"Dismiss", style: UIAlertActionStyle.default,handler: nil))
                     self.present(alertController, animated:true, completion:nil)
                 } else {
+                    Auth.auth().signIn(withEmail: username, password: password) { (user, error) in
+                        // ...
+                    }
                     // the request succeeded
                     Backend.saveUserLocal()
                     self.performSegue(withIdentifier: "mainSegue", sender: self)
