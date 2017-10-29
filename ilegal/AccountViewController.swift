@@ -83,6 +83,16 @@ class AccountViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 1 && indexPath.row == 1 {
+            if User.currentUser.email == "peterjlu@usc.edu" {
+                self.performSegue(withIdentifier: "chatListSegue", sender: indexPath);
+            }
+            else {
+                self.performSegue(withIdentifier: "chatSegue", sender: indexPath);
+            }
+        }
+    }
     
     
      // MARK: - Navigation
@@ -95,13 +105,15 @@ class AccountViewController: UITableViewController {
             let indexPath = tableView.indexPathForSelectedRow
             (segue.destination as! UpdateUserViewController).userProperty = userProperties[indexPath!.row]
         }
-        else if segue.identifier == "chatSegue"{
+        else if segue.identifier == "chatSegue" {
             self.tabBarController?.tabBar.isHidden = false
         }
-        else if segue.identifier == "adminSegue"{
-            
+        else if segue.identifier == "chatListSegue" {
+            self.tabBarController?.tabBar.isHidden = false
         }
      }
+    
+    //
 
     // MARK: - Methods
     

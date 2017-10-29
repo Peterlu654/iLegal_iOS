@@ -42,6 +42,8 @@
 		D0112B2A1F96F000005E157E /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0112B291F96F000005E157E /* ChatViewController.swift */; };
 		D03131BA1FA40C16004EDCAF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D03131B91FA40C16004EDCAF /* GoogleService-Info.plist */; };
 		D0E2EE731FA5391000F85013 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E2EE721FA5391000F85013 /* Constants.swift */; };
+		D0E64B9D1FA693CE00DE91EA /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E64B9C1FA693CE00DE91EA /* ListViewController.swift */; };
+		D0E64B9F1FA6952700DE91EA /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E64B9E1FA6952700DE91EA /* Chat.swift */; };
 		FEE8ECD21D868D7C0005C457 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE8ECD11D868D7C0005C457 /* AppDelegate.swift */; };
 		FEE8ECD41D868D7C0005C457 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE8ECD31D868D7C0005C457 /* ViewController.swift */; };
 		FEE8ECD71D868D7C0005C457 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEE8ECD51D868D7C0005C457 /* Main.storyboard */; };
@@ -111,6 +113,8 @@
 		D0112B291F96F000005E157E /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		D03131B91FA40C16004EDCAF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D0E2EE721FA5391000F85013 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D0E64B9C1FA693CE00DE91EA /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		D0E64B9E1FA6952700DE91EA /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		FEE8ECCE1D868D7C0005C457 /* ilegal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ilegal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEE8ECD11D868D7C0005C457 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FEE8ECD31D868D7C0005C457 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -184,6 +188,7 @@
 				56E84F9F1D87C1D200E406FC /* CategoriesViewController.swift */,
 				62B554D41E4AD02C0037C41D /* CategoriesViewController2.swift */,
 				62B554D61E4AD2550037C41D /* CategoryCell.swift */,
+				D0E64B9E1FA6952700DE91EA /* Chat.swift */,
 				D0112B291F96F000005E157E /* ChatViewController.swift */,
 				56C6B7AE1DBD7BC400514D93 /* CheckBox.swift */,
 				56C6B7AC1DBD7BB000514D93 /* CheckBoxGroup.swift */,
@@ -196,8 +201,10 @@
 				B70EDC451DC54A62001A7D47 /* DropdownPickerView.swift */,
 				56C6B7A21DB088E500514D93 /* EditPDFViewController.swift */,
 				62B61C571E5BFC0F00E22C07 /* EditPDFViewController2.swift */,
+				623388961E6F82AA00F0226F /* Extensions.swift */,
 				56E84FA11D87DA7000E406FC /* ForgotPasswordViewController.swift */,
 				B7899B791D9E1F2D00039AB6 /* Form.swift */,
+				D0E64B9C1FA693CE00DE91EA /* ListViewController.swift */,
 				56C6B7A81DB7E4A700514D93 /* PDFTextField.swift */,
 				56833AB01D8B8EC400EEF299 /* PreviewPDFViewController.swift */,
 				B786A39C1DB4082300CD6DC7 /* SavedFilesViewController.swift */,
@@ -211,7 +218,6 @@
 				FEE8ECD81D868D7C0005C457 /* Assets.xcassets */,
 				FEE8ECDA1D868D7C0005C457 /* LaunchScreen.storyboard */,
 				FEE8ECD51D868D7C0005C457 /* Main.storyboard */,
-				623388961E6F82AA00F0226F /* Extensions.swift */,
 			);
 			path = ilegal;
 			sourceTree = "<group>";
@@ -400,6 +406,7 @@
 				6231D2D21E4ABCA90009114D /* Backend.swift in Sources */,
 				B70EDC461DC54A62001A7D47 /* DropdownPickerView.swift in Sources */,
 				62B554D51E4AD02C0037C41D /* CategoriesViewController2.swift in Sources */,
+				D0E64B9D1FA693CE00DE91EA /* ListViewController.swift in Sources */,
 				B7899B7A1D9E1F2D00039AB6 /* Form.swift in Sources */,
 				B7D9EDEC1DB42F75005EEBC6 /* YesNoButton.swift in Sources */,
 				B786A39F1DB40F4900CD6DC7 /* ViewPDFViewController.swift in Sources */,
@@ -413,6 +420,7 @@
 				56C6B7AF1DBD7BC400514D93 /* CheckBox.swift in Sources */,
 				62E9B6191E53CD1C00C63E76 /* ValueCell.swift in Sources */,
 				56833AB31D8B955200EEF299 /* DocumentsViewController.swift in Sources */,
+				D0E64B9F1FA6952700DE91EA /* Chat.swift in Sources */,
 				569AE51B1DC691EA00366376 /* EditPDFViewController.swift in Sources */,
 				56C6B7AD1DBD7BB000514D93 /* CheckBoxGroup.swift in Sources */,
 				56E84F9E1D87C1BC00E406FC /* ContactUsViewController.swift in Sources */,
