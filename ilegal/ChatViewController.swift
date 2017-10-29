@@ -7,12 +7,15 @@
 
 import UIKit
 import JSQMessagesViewController
-import FirebaseAuth
+import Firebase
 
 class ChatViewController: JSQMessagesViewController {
 
     var messages = [JSQMessage]()
     var handle: AuthStateDidChangeListenerHandle?
+    
+    static let databaseRoot = Database.database().reference()
+    static let databaseChats = databaseRoot.child("chats")
     
     lazy var outgoingBubble: JSQMessagesBubbleImage = {
         return JSQMessagesBubbleImageFactory()!.outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleBlue())
@@ -59,7 +62,7 @@ class ChatViewController: JSQMessagesViewController {
                 }
             }
         })
-     
+        
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData!
