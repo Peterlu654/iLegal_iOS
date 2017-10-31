@@ -13,12 +13,15 @@ class ListViewController: UITableViewController {
     private var chats: [Chat] = []
     private lazy var chatsRef: DatabaseReference = Database.database().reference().child("chats")
     private var chatsRefHandle: DatabaseHandle?
+    private var chatsRefHandle2: DatabaseHandle?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         chats.append(Chat(name: "Test", id: "1234"))
         chats.append(Chat(name: "Test 2", id: "1234"))
-
+        
+        observeChats()
+        self.tableView.reloadData()
         
         
         // Uncomment the following line to preserve selection between presentations
@@ -29,14 +32,32 @@ class ListViewController: UITableViewController {
     }
 
     private func observeChats() {
-        chatsRefHandle = chatsRef.observe(.childAdded, with: { (snapshot) -> Void in
+        chatsRefHandle = chatsRef.observe(.value, with: {(snapshot) in
+            if let allChats = snapshot.children.allObjects as? [DataSnapshot] {
+                for child in allChats {
+                    self.chatsRefHandle2 = self.chatsRef.child(child.key).observe(.value, with: {(snapshot2) in
+                        if let name = chat["name"] as! String!, name.characters.count > 0, let id = chat["sender_id"] as! String! {
+                            self.chats.append(Chat(name: name, id: id))
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
+                        }
+                    })
+                }
+            }
+        })
+        
+        /*
+        chatsRefHandle2 = chatsRef.observe(.childAdded, with: { (snapshot) -> Void in
             let chatData = snapshot.value as! Dictionary<String, AnyObject>
             let id = snapshot.key
             if let name = chatData["name"] as! String!, name.characters.count > 0 {
                 self.chats.append(Chat(name: name, id: id))
                 self.tableView.reloadData()
             }
+ 
         })
+         */
     }
     
     override func didReceiveMemoryWarning() {

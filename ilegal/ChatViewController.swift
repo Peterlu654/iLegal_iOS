@@ -41,9 +41,6 @@ class ChatViewController: JSQMessagesViewController {
         senderId = "1234"
         senderDisplayName = "Person"
         
-        //static let databaseRoot = Database.database().reference()
-        //static let databaseChats = databaseRoot.child("chats")
-        
         let query = Constants.refs.databaseChats.queryLimited(toLast: 10)
         
         _ = query.observe(.childAdded, with: { [weak self] snapshot in
