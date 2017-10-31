@@ -36,6 +36,7 @@ class ListViewController: UITableViewController {
             if let allChats = snapshot.children.allObjects as? [DataSnapshot] {
                 for child in allChats {
                     self.chatsRefHandle2 = self.chatsRef.child(child.key).observe(.value, with: {(snapshot2) in
+                        let chat = snapshot2.value as! Dictionary<String, AnyObject>
                         if let name = chat["name"] as! String!, name.characters.count > 0, let id = chat["sender_id"] as! String! {
                             self.chats.append(Chat(name: name, id: id))
                             DispatchQueue.main.async {
