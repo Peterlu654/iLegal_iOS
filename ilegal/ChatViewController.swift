@@ -14,6 +14,11 @@ class ChatViewController: JSQMessagesViewController {
     var messages = [JSQMessage]()
     var handle: AuthStateDidChangeListenerHandle?
     
+    var emailString: String = ""
+    
+    private var chatsRefHandle: DatabaseHandle?
+    private var chatsRefHandle2: DatabaseHandle?
+    
     static let databaseRoot = Database.database().reference()
     static let databaseChats = databaseRoot.child("chats")
     
@@ -28,39 +33,101 @@ class ChatViewController: JSQMessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        handle = Auth.auth().addStateDidChangeListener { (auth, user) in
-            // ...
-        }
-        
         inputToolbar.contentView.leftBarButtonItem = nil
         collectionView.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
         collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
         
         
         senderId = "1234"
-        senderDisplayName = "Person"
+        senderDisplayName = User.currentUser.firstName
+        if (emailString == ""){
+            emailString = User.currentUser.email
+        }
+
+        emailString = emailString.replacingOccurrences(of: ".", with: "")
         
-        let query = Constants.refs.databaseChats.queryLimited(toLast: 10)
+        observeChat()
         
-        _ = query.observe(.childAdded, with: { [weak self] snapshot in
-            
-            if  let data        = snapshot.value as? [String: String],
-                let id          = data["sender_id"],
-                let name        = data["name"],
-                let text        = data["text"],
-                !text.isEmpty
-            {
-                if let message = JSQMessage(senderId: id, displayName: name, text: text)
-                {
-                    self?.messages.append(message)
+        /*
+        Constants.refs.databaseChats.observeSingleEvent(of: .value, with: {(snapshot) in
+            if snapshot.hasChild(self.emailString){
+                print("found chat")
+                let query = Constants.refs.databaseChats.child(self.emailString).queryLimited(toLast: 10)
+                
+                _ = query.observe(.childAdded, with: { [weak self] snapshot in
                     
-                    self?.finishReceivingMessage()
-                }
+                    if  let data        = snapshot.value as? [String: String],
+                        let id          = data["sender_id"],
+                        let name        = data["name"],
+                        let text        = data["text"],
+                        !text.isEmpty
+                    {
+                        if let message = JSQMessage(senderId: id, displayName: name, text: text)
+                        {
+                            self?.messages.append(message)
+                            self?.finishReceivingMessage()
+                        }
+                    }
+                })
+            }
+        })
+        */
+ 
+    }
+    
+    private func observeChat() {
+        Constants.refs.databaseChats.observeSingleEvent(of: .value, with: {(snapshot) in
+            if snapshot.hasChild(self.emailString){
+                print("found chat")
+                let query = Constants.refs.databaseChats.child(self.emailString).queryLimited(toLast: 10)
+                
+                _ = query.observe(.childAdded, with: { [weak self] snapshot in
+                    
+                    if  let data        = snapshot.value as? [String: String],
+                        let id          = data["sender_id"],
+                        let name        = data["name"],
+                        let text        = data["text"],
+                        !text.isEmpty
+                    {
+                        if let message = JSQMessage(senderId: id, displayName: name, text: text)
+                        {
+                            self?.messages.append(message)
+                            self?.finishReceivingMessage()
+                        }
+                    }
+                })
             }
         })
         
+        /*
+        Constants.refs.databaseChats.observeSingleEvent(of: .value, with: {(snapshot) in
+            if snapshot.hasChild(self.emailString){
+                print("found chat")
+                let query = Constants.refs.databaseChats.child(self.emailString).queryLimited(toLast: 10)
+                self.chatsRefHandle = query.observe(.childAdded, with: {(snapshot) in
+                    if let chatMessages = snapshot.children.allObjects as? [DataSnapshot] {
+                        for child in chatMessages {
+                            self.chatsRefHandle2 = Constants.refs.databaseChats.child(self.emailString).child(child.key).observe(.value, with: {(snapshot2) in
+                                if let chat = snapshot2.value as? [String: String],
+                                    let name = chat["name"],
+                                    let id = chat["sender_id"],
+                                    let text = chat["text"]{
+                                    
+                                    if let message = JSQMessage(senderId: id, displayName: name, text: text) {
+                                        self.messages.append(message)
+                                        self.finishReceivingMessage()
+                                    }
+                                }
+                            })
+                        }
+                    }
+                })
+            }
+        })
+        */
     }
+    
+    
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData!
     {
@@ -95,7 +162,7 @@ class ChatViewController: JSQMessagesViewController {
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!)
     {
         
-        let ref = Constants.refs.databaseChats.childByAutoId()
+        let ref = Constants.refs.databaseChats.child(self.emailString).childByAutoId()
         
         let message = ["sender_id": senderId, "name": senderDisplayName, "text": text]
         
@@ -108,12 +175,6 @@ class ChatViewController: JSQMessagesViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        Auth.auth().removeStateDidChangeListener(handle!)
-    }
-    
- 
  
     
     /*

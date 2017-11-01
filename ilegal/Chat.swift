@@ -8,11 +8,11 @@
 import Foundation
 
 class Chat {
-    var id: String
     var name: String
+    var email: String
     
-    init(name: String, id: String) {
-        self.id = id
+    init(name: String, email: String) {
         self.name = name
+        self.email = email
     }
 }

@@ -14,51 +14,30 @@ class ListViewController: UITableViewController {
     private lazy var chatsRef: DatabaseReference = Database.database().reference().child("chats")
     private var chatsRefHandle: DatabaseHandle?
     private var chatsRefHandle2: DatabaseHandle?
+    
+    private var chatemail = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        chats.append(Chat(name: "Test", id: "1234"))
-        chats.append(Chat(name: "Test 2", id: "1234"))
         
         observeChats()
-        self.tableView.reloadData()
-        
         
         // Uncomment the following line to preserve selection between presentations
-        self.clearsSelectionOnViewWillAppear = false
+        //self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     private func observeChats() {
-        chatsRefHandle = chatsRef.observe(.value, with: {(snapshot) in
-            if let allChats = snapshot.children.allObjects as? [DataSnapshot] {
-                for child in allChats {
-                    self.chatsRefHandle2 = self.chatsRef.child(child.key).observe(.value, with: {(snapshot2) in
-                        let chat = snapshot2.value as! Dictionary<String, AnyObject>
-                        if let name = chat["name"] as! String!, name.characters.count > 0, let id = chat["sender_id"] as! String! {
-                            self.chats.append(Chat(name: name, id: id))
-                            DispatchQueue.main.async {
-                                self.tableView.reloadData()
-                            }
-                        }
-                    })
-                }
-            }
-        })
-        
-        /*
-        chatsRefHandle2 = chatsRef.observe(.childAdded, with: { (snapshot) -> Void in
-            let chatData = snapshot.value as! Dictionary<String, AnyObject>
-            let id = snapshot.key
-            if let name = chatData["name"] as! String!, name.characters.count > 0 {
-                self.chats.append(Chat(name: name, id: id))
+        chatsRefHandle = chatsRef.observe(.childAdded, with: {(snapshot) in
+            let email = snapshot.key
+            self.chats.append(Chat(name: "", email: email))
+            print("added chat " + email)
+            DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
- 
         })
-         */
     }
     
     override func didReceiveMemoryWarning() {
@@ -76,15 +55,21 @@ class ListViewController: UITableViewController {
         return chats.count
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "chatCell", for: indexPath)
-        cell.textLabel?.text = chats[(indexPath as NSIndexPath).row].name
+        cell.textLabel?.text = chats[(indexPath as NSIndexPath).row].email
 
         return cell
     }
     
-
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //NSLog("You selected cell number: \(indexPath.row)!")
+        print("row = " + String(indexPath.row))
+        print("email = " + chats[indexPath.row].email)
+        self.chatemail = chats[indexPath.row].email
+        self.performSegue(withIdentifier: "chatSegue", sender: self)
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -120,14 +105,17 @@ class ListViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        let chatVC = segue.destination as! ChatViewController
+        print("passing email " + chatemail)
+        chatVC.emailString = chatemail
     }
-    */
+    
 
 }

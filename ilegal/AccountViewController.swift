@@ -106,10 +106,10 @@ class AccountViewController: UITableViewController {
             (segue.destination as! UpdateUserViewController).userProperty = userProperties[indexPath!.row]
         }
         else if segue.identifier == "chatSegue" {
-            self.tabBarController?.tabBar.isHidden = false
+            self.tabBarController?.tabBar.isHidden = true
         }
         else if segue.identifier == "chatListSegue" {
-            self.tabBarController?.tabBar.isHidden = false
+            self.tabBarController?.tabBar.isHidden = true
         }
      }
     

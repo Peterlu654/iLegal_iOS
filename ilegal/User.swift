@@ -29,6 +29,7 @@ open class User: NSObject {
     var DOB:String!
     var id:String!
     var myFiles = [Form]()
+    var chat_id:String!
     
     var dictionaryValue: [String : Any] {
         return [
@@ -46,7 +47,7 @@ open class User: NSObject {
             "license": license,
             "active": active,
             "DOB": DOB,
-            "id": id
+            "id": id,
         ]
     }
     
@@ -72,6 +73,7 @@ open class User: NSObject {
         DOB = "0000-00-00"
         active = false;
         id = ""
+        chat_id = ""
     }
     
     init(dictionary: [String : Any]) {
