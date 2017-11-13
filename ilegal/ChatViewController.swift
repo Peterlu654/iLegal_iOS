@@ -39,7 +39,7 @@ class ChatViewController: JSQMessagesViewController {
         collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
         
         
-        senderId = ""
+        senderId = User.currentUser.firstName
         senderDisplayName = User.currentUser.firstName
         if (emailString == ""){
             emailString = User.currentUser.email
@@ -60,7 +60,6 @@ class ChatViewController: JSQMessagesViewController {
     private func observeChat() {
         Constants.refs.databaseChats.observeSingleEvent(of: .value, with: {(snapshot) in
             if snapshot.hasChild(self.emailString){
-                print("found chat")
                 let query = Constants.refs.databaseChats.child(self.emailString).queryLimited(toLast: 10)
                 
                 _ = query.observe(.childAdded, with: { [weak self] snapshot in
@@ -120,7 +119,7 @@ class ChatViewController: JSQMessagesViewController {
         
         let ref = Constants.refs.databaseChats.child(self.emailString).childByAutoId()
         
-        let message = ["sender_id": senderId, "name": senderDisplayName, "text": text]
+        let message = ["sender_id": senderDisplayName, "name": senderDisplayName, "text": text]
         
         ref.setValue(message)
         

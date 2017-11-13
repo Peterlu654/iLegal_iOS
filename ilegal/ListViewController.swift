@@ -64,8 +64,6 @@ class ListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //NSLog("You selected cell number: \(indexPath.row)!")
-        print("row = " + String(indexPath.row))
-        print("email = " + chats[indexPath.row].email)
         self.chatemail = chats[indexPath.row].email
         self.performSegue(withIdentifier: "chatSegue", sender: self)
     }
