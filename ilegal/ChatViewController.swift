@@ -33,12 +33,13 @@ class ChatViewController: JSQMessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         inputToolbar.contentView.leftBarButtonItem = nil
         collectionView.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
         collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
         
         
-        senderId = "1234"
+        senderId = ""
         senderDisplayName = User.currentUser.firstName
         if (emailString == ""){
             emailString = User.currentUser.email
@@ -48,30 +49,11 @@ class ChatViewController: JSQMessagesViewController {
         
         observeChat()
         
-        /*
-        Constants.refs.databaseChats.observeSingleEvent(of: .value, with: {(snapshot) in
-            if snapshot.hasChild(self.emailString){
-                print("found chat")
-                let query = Constants.refs.databaseChats.child(self.emailString).queryLimited(toLast: 10)
-                
-                _ = query.observe(.childAdded, with: { [weak self] snapshot in
-                    
-                    if  let data        = snapshot.value as? [String: String],
-                        let id          = data["sender_id"],
-                        let name        = data["name"],
-                        let text        = data["text"],
-                        !text.isEmpty
-                    {
-                        if let message = JSQMessage(senderId: id, displayName: name, text: text)
-                        {
-                            self?.messages.append(message)
-                            self?.finishReceivingMessage()
-                        }
-                    }
-                })
-            }
-        })
-        */
+        self.collectionView.layoutIfNeeded()
+        self.collectionView.performBatchUpdates({
+            self.collectionView.reloadData()
+        }, completion: nil)
+
  
     }
     
@@ -99,32 +81,6 @@ class ChatViewController: JSQMessagesViewController {
             }
         })
         
-        /*
-        Constants.refs.databaseChats.observeSingleEvent(of: .value, with: {(snapshot) in
-            if snapshot.hasChild(self.emailString){
-                print("found chat")
-                let query = Constants.refs.databaseChats.child(self.emailString).queryLimited(toLast: 10)
-                self.chatsRefHandle = query.observe(.childAdded, with: {(snapshot) in
-                    if let chatMessages = snapshot.children.allObjects as? [DataSnapshot] {
-                        for child in chatMessages {
-                            self.chatsRefHandle2 = Constants.refs.databaseChats.child(self.emailString).child(child.key).observe(.value, with: {(snapshot2) in
-                                if let chat = snapshot2.value as? [String: String],
-                                    let name = chat["name"],
-                                    let id = chat["sender_id"],
-                                    let text = chat["text"]{
-                                    
-                                    if let message = JSQMessage(senderId: id, displayName: name, text: text) {
-                                        self.messages.append(message)
-                                        self.finishReceivingMessage()
-                                    }
-                                }
-                            })
-                        }
-                    }
-                })
-            }
-        })
-        */
     }
     
     
@@ -141,7 +97,7 @@ class ChatViewController: JSQMessagesViewController {
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource!
     {
-        return messages[indexPath.item].senderId == senderId ? outgoingBubble : incomingBubble
+        return messages[indexPath.item].senderDisplayName == User.currentUser.firstName ? outgoingBubble : incomingBubble
     }
 
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource!
